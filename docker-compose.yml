@@ -1,0 +1,90 @@
+version: '3.8'
+services:
+ #api:
+  #image: fabricioveronez/test-cerveja
+  #ports:
+   #- "8080:5000"
+  #networks:
+   #- catalogo
+  #depends_on:
+   #- mongodb
+  #environment:
+   #MONGODB_HOST: "mongodb"
+   #MONGODB_USERNAME: "mongouser"
+   #MONGODB_PASSWORD: "mongopwd"
+
+ #mongodb:
+  #image: mongo:4.1
+  #container_name: mongodb
+  #networks:
+   #- catalogo
+  #environment:
+   #MONGO_INITDB_ROOT_USERNAME: mongouser
+   #MONGO_INITDB_ROOT_PASSWORD: mongopwd
+ 
+ prometheus:
+  image: prom/prometheus:v2.24.1
+  container_name: prometheus
+  volumes: 
+   - ./prometheus_config:/etc/prometheus/
+  ports:
+   - "9090:9090"
+  #depends_on:
+   #- api
+  #networks:
+   #- catalogo
+  #command:
+   #- '--config.file=/etc/prometheus/prometheus.yml'
+   
+ grafana:
+  image: grafana/grafana:7.5.1
+  container_name: grafana
+  volumes:
+   #- ./data/grafana:/var/lib/grafana/plugins
+   - ./data/grafana/datasources:/etc/grafana/datasources
+   - ./data/grafana/dashboards:/etc/grafana/dashboards
+  user: "0"
+  ports:
+   - "3000:3000"
+  depends_on:
+   - prometheus
+  #networks:
+   #- catalogo 
+
+ node_exporter: 
+  image: quay.io/prometheus/node-exporter:v1.2.2
+  container_name: node_exporter
+  ports:
+   - "9100:9100"
+  #networks:
+   #- catalogo
+
+ #mysql_exporter:
+  #image: prom/mysqld-exporter
+  #container_name: mysql_exporter
+  #environment:
+   #DATA_SOURCE_NAME: root:ThePassword@(172.17.0.2:3306)/bdgrupo4
+   #172.17.0.2
+  #ports:
+   #- "9104:9104"
+  #networks:
+   #- catalogo
+ 
+ cadvisor:
+  image: google/cadvisor
+  container_name: cadvisor
+  ports:
+   - "8080:8080"
+  #networks:
+   #- catalogo
+  volumes: 
+   - /etc/localtime:/etc/localtime:ro
+   - /etc/timezone:/etc/timezone:ro
+   - /:/rootfs:ro
+   - /var/run:/var/run:rw
+   - /sys:/sys:ro
+   - /var/lib/docker:/var/lib/docker:ro
+
+#networks:
+  #catalogo:
+   #driver: bridge
