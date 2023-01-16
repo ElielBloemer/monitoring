@@ -26,10 +26,10 @@ receivers:
 
 - name: email_notifications
   email_configs:
-  - to: elielbloemercorrea@gmail.com 
-    from: ebloemercorrea@frba.utn.edu.ar 
+  - to: emailtest1
+    from: emailtest2
     smarthost: smtp.gmail.com:587
-    auth_username: elielbloemercorrea@gmail.com
-    auth_identity: elielbloemercorrea@gmail.com
-    auth_password: xuoyscliwrzxxrcw
+    auth_username: emailtest1
+    auth_identity: emailtest1
+    auth_password: your-password
     send_resolved: true
