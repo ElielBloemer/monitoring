@@ -18,7 +18,7 @@ finally you must get all the ips from containers, CADVISOR, NODE_EXPORTER, MYSQL
 and run the last script prom.sh
  - prom.sh
 
-if you did the configuration correctly, go to localhost:9090 and status/targets
+if you did the configuration correctly, go to localhost:9090 status/targets and
 you will see that 
 ![image](https://user-images.githubusercontent.com/70656587/213340086-41eeeeb9-d885-4d2a-a74f-ed5a0a835e24.png)
 
