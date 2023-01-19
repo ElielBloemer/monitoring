@@ -35,7 +35,7 @@ receivers:
     send_resolved: true
     
     
-    ################################ OTHER EXAMPLE SET UP ALERTMANAGER,ONLY SLACK #################################
+   ####################################### ANOTHER EXAMPLE SET UP ALERTMANAGER,ONLY WITH SLACK ##########################################
 receivers: 
 - name: slack_notification
   slack_configs:
@@ -70,5 +70,5 @@ route:
  repeat_interval: 1m
  group_by: 
   - alertname
- group_wait: 15s#####################################
+ group_wait: 15s
     
