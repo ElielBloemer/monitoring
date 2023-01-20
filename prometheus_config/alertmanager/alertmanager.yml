@@ -63,6 +63,8 @@ receivers:
           {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
           {{ end }}
         {{ end }}
+  pagerduty_configs:
+  - service_key: <KEY_INTEGRATION_PAGERDUTY>
 
 route:
  receiver: slack_notification
