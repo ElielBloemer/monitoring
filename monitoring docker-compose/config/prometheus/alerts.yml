@@ -10,3 +10,14 @@ groups:
     annotations:
      description : '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 30 segundos. '
      title: mysqlDB down
+- name: alertaDisco80%
+  rules:
+  - alert: discocompleto
+    expr: 100 - ((node_filesystem_avail_bytes{instance="node_exporter:9100",job="node_exporter",device="/dev/sda5"} * 100) / node_filesystem_size_bytes{instance="node_exporter:9100",job="node_exporter",device="/dev/sda5"}) >= 46.7
+    for: 10s
+    labels:
+     team: disk
+     severity: "high"
+    annotations:
+     description : '{{ $labels.instance }} of job {{ $labels.job }} ha superado el 50% del disco. '
+     title: diskfull
