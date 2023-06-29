@@ -1,0 +1,31 @@
+global:
+  
+route:
+ receiver: Default
+ group_interval: 15s
+ repeat_interval: 1m
+ group_by: 
+  - alertname
+ group_wait: 15s
+  
+ routes: 
+  - receiver: alertDatabase
+    match: 
+     team: iolDB
+
+receivers: 
+- name: Default
+  telegram_configs: 
+   - bot_token: 6131782627:AAEQARaw2uRNYBuoJnevHIy8DuKESA8tFRM
+     api_url: https://api.telegram.org
+     chat_id: -1001894189870
+     parse_mode: ''
+  #- url: 'https://pruu.herokuapp.com/dump/wpwebhookdefault'
+
+- name: alertDatabase
+  telegram_configs: 
+   - bot_token: 6131782627:AAEQARaw2uRNYBuoJnevHIy8DuKESA8tFRM
+     api_url: https://api.telegram.org
+     chat_id: -1001894189870
+     parse_mode: ''
+  

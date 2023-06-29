@@ -1,0 +1,46 @@
+global:
+ scrape_interval: 15s
+ evaluation_interval: 15s
+
+alerting:
+ alertmanagers:
+ - static_configs:
+   - targets:
+     - alertmanager:9093
+
+rule_files:
+ - alerts.yml
+
+scrape_configs:
+ - job_name: prometheus
+   static_configs:
+   - targets:
+     - localhost:9090
+ 
+ #- job_name: cadvisor
+   #static_configs:
+   #- targets:
+     #- IP_CADVISOR_CONTAINER:8080
+     #labels:
+       #group: 'cadvisor_webvm3'
+
+ - job_name: mysql_exporter
+   static_configs:
+   - targets:
+     - mysql_exporter:9104
+     labels:
+       group: 'mysql_local'
+
+ #- job_name: alert_manager
+   #static_configs:
+   #- targets:
+     #- alert_manager:9093
+     #labels:
+       #group: 'alertmanager'
+ 
+ #- job_name: node_exporter
+   #static_configs:
+   #- targets:
+     #- IP_NODE_CONTAINER:9100
+     #labels:
+       #group: 'node_exporter_webvm3'

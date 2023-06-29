@@ -1,0 +1,12 @@
+groups:
+- name: mysqlAndDocker.alerts
+  rules:
+  - alert: MySQLdown
+    expr: mysql_up == 0
+    for: 10s
+    labels:
+     team: iolDB
+     severity: "high"
+    annotations:
+     description : '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 30 segundos. '
+     title: mysqlDB down

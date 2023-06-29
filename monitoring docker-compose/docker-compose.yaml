@@ -1,0 +1,49 @@
+version: '3.8'
+services: 
+ prometheus:
+  image: prom/prometheus:v2.44.0
+  container_name: prometheus
+  ports:
+   - "9090:9090"
+  networks:
+   - prom_net
+  volumes:
+   - ./config/prometheus:/etc/prometheus
+   
+
+ mysql:
+  image: mysql:8.0
+  container_name: mysql
+  ports:
+   - "3306:3306"
+  networks:
+   - prom_net
+  environment:
+   MYSQL_DATABASE: dbtest
+   MYSQL_ROOT_PASSWORD: iol2023
+   MYSQL_USER: invertir
+   MYSQL_PASSWORD: online
+  
+ mysql_exporter:
+  image: prom/mysqld-exporter:v0.14.0
+  container_name: mysql_exporter
+  ports:
+   - "9104:9104"
+  networks:
+   - prom_net
+  environment:
+   DATA_SOURCE_NAME: root:iol2023@(mysql:3306)/dbtest
+
+ alertmanager:
+  image: prom/alertmanager:v0.24.0
+  container_name: alert_manager
+  ports: 
+   - "9093:9093"
+  networks:
+   - prom_net
+  volumes:
+   - ./config/alertmanager:/etc/alertmanager/
+
+networks:
+ prom_net:
+  driver: bridge
