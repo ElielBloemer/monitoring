@@ -13,6 +13,10 @@ route:
     match: 
      team: iolDB
 
+  - receiver: alertDatabase
+    match: 
+     team: disk
+
 receivers: 
 - name: Default
   telegram_configs: 
